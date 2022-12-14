@@ -29,9 +29,9 @@ repos:
     rev: 0.7.9
     hooks:
       - id: mdformat
-        args: ["--number", "--table-width", "200", '--disable-escape', 'backslash', '--disable-escape', 'link-enclosure']
+        args: ["--number", "--table-width", "200"]
         additional_dependencies:
-          - "mdformat-openmmlab>=0.0.4"
+          - mdformat-openmmlab
           - mdformat_frontmatter
           - linkify-it-py
   - repo: https://github.com/codespell-project/codespell

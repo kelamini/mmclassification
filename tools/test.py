@@ -23,7 +23,7 @@ def parse_args():
     parser = argparse.ArgumentParser(description='mmcls test model')
     parser.add_argument('config', help='test config file path')
     parser.add_argument('checkpoint', help='checkpoint file')
-    parser.add_argument('--out', help='output result file')
+    parser.add_argument('--out', default="/home/kelaboss/eval_data/xcyuan/tmp/datasets/pred/epoch10.json", help='output result file')
     out_options = ['class_scores', 'pred_score', 'pred_label', 'pred_class']
     parser.add_argument(
         '--out-items',
@@ -195,7 +195,10 @@ def main():
                                   **show_kwargs)
     else:
         model = wrap_distributed_model(
-            model, device=cfg.device, broadcast_buffers=False)
+            model,
+            device=cfg.device,
+            device_ids=[int(os.environ['LOCAL_RANK'])],
+            broadcast_buffers=False)
         outputs = multi_gpu_test(model, data_loader, args.tmpdir,
                                  args.gpu_collect)
 
